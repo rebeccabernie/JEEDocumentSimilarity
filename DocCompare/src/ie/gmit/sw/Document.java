@@ -11,11 +11,11 @@ public class Document {
 	// Using source - generate constructor, get/set 
 
 	// Constructor
-	public Document(String name, String content, int length) {
+	public Document(String name, String content) {
 		super();
 		this.name = name;
 		this.content = content;
-		this.length = length;
+		//this.length = length;
 	}
 	
 	// Doc Name ----------------------------
@@ -34,13 +34,13 @@ public class Document {
 		this.content = content;
 	}
 	
-	// Doc Length --------------------------
+	/* Doc Length --------------------------
 	public int getLength() {
 		return length;
 	}
 	public void setLength(int length) {
 		this.length = length;
-	}
+	}*/
 	
 	
 

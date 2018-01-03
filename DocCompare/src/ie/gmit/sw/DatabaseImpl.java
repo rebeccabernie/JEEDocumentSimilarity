@@ -1,13 +1,20 @@
 package ie.gmit.sw;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.ta.TransparentActivationSupport;
 import com.db4o.ta.TransparentPersistenceSupport;
+import com.sun.xml.internal.ws.util.ReadAllStream;
 
 import xtea_db4o.XTEA;
 import xtea_db4o.XTeaEncryptionStorage;
@@ -42,7 +49,38 @@ public class DatabaseImpl implements Database {
 
 		//Open a local database. Use Db4o.openServer(config, server, port) for full client / server
 		db = Db4oEmbedded.openFile(config, "docs.data");
-		
+
+
+		try { // Read file into string adapted from http://javarevisited.blogspot.ie/2015/09/how-to-read-file-into-string-in-java-7.html
+			
+			// Convert W+P txt file into a string, create a new Document object for it, add it to database
+			String warandpeace = new String(Files.readAllBytes(Paths.get("warandpeace.txt")));
+			Document doc1 = new Document("War and Peace", warandpeace);
+			db.store(doc1);
+			
+			// Convert DBG txt file into a string, create a new Document object for it, add it to database
+			String debellogallico = new String(Files.readAllBytes(Paths.get("debellogallico.txt")));
+			Document doc2 = new Document("De Bello Gallico", debellogallico);
+			db.store(doc2);
+			
+			db.commit(); // Commits the transaction
+			
+		} catch (IOException e) {
+			System.out.println("File not found...");
+			e.printStackTrace();
+		}
+	}
+	
+	public void showAllDocs(){
+		//An ObjectSet is a specialised List for storing results
+		ObjectSet<Document> docs = db.query(Document.class);
+		for (Document doc : docs) {
+			System.out.println("[Document] " + doc.getName() + "\t ***Database ObjID: " + db.ext().getID(doc));
+
+			//Removing objects from the database is as easy as adding them
+			//db.delete(customer);
+			db.commit();
+		}
 	}
 
 	// Compare docs?
