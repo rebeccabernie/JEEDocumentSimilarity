@@ -10,11 +10,12 @@ https://stackoverflow.com/a/26778178/7232648 -->
 
   <display-name>Software Development Year 4 - Advanced Object Oriented Design Principles and Patterns</display-name>
   <description>
-     2017 Assignment - A JEE Application for Measuring Document Similarity.
+  	Document Similarity Application
+     <!-- 2017 Assignment - A JEE Application for Measuring Document Similarity.
 
      Make sure you encapsulate any environmental variables like system paths, connection strings, class names
      and the like in this deployment descriptor. These can be configured as context-param elements and then
-     read and initialised by a start-up servlet.
+     read and initialised by a start-up servlet.  -->
   </description>
 
   <!-- A context is a variable with application wide scope. These can be accessed easily in a Servlet or JSP page-->
