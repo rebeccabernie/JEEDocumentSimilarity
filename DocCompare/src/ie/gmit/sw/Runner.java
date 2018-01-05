@@ -8,6 +8,7 @@ public class Runner {
 		dbI.showAllDocs();
 		
 		FileHandler fh = new FileHandler();
+		fh.readFile("warandpeace.txt");
 		fh.readFile("test1.txt");
 
 	}
