@@ -80,7 +80,7 @@ public class ServiceHandler extends HttpServlet {
 		out.print("<H1>Processing request for Job#: " + taskNumber + "</H1>");
 		out.print("<H3>Document Title: " + title + "</H3>");
 		
-		
+		/*
 		//Output some useful information for you (yes YOU!)
 		out.print("<div id=\"r\"></div>");
 		out.print("<font color=\"#993333\"><b>");
@@ -99,6 +99,7 @@ public class ServiceHandler extends HttpServlet {
 		out.print("<li><b>Compile on Windows:</b> javac -cp .;%TOMCAT_HOME%/lib/servlet-api.jar WEB-INF/classes/ie/gmit/sw/*.java");
 		out.print("<li><b>Build JAR Archive:</b> jar -cf jaccard.war *");
 		out.print("</ol>");
+		*/
 		
 		//We can also dynamically write out a form using hidden form fields. The form itself is not
 		//visible in the browser, but the JavaScript below can see it.
@@ -130,8 +131,8 @@ public class ServiceHandler extends HttpServlet {
 		String line = null;
 		while ((line = br.readLine()) != null) {
 			//Break each line up into shingles and do something. The servlet really should act as a
-			//contoller and dispatch this task to something else... Divide and conquer...! I've been
-			//telling you all this since 2nd year...!
+			//contoller and dispatch this task to something else... 
+			//Divide and conquer...! I've been telling you all this since 2nd year...!
 			out.print(line);
 		}
 		out.print("</font>");	
