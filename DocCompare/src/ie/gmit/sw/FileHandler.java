@@ -17,7 +17,7 @@ import java.util.Set;
 public class FileHandler {
 	//private File file; // document for preparing
 	private Set<Integer> shingles = new HashSet<Integer>();// set of shingles
-	private Map<Integer, String> hashTable = new HashMap<Integer, String>(); // hashmap containing hashtable of info for shingles
+	private static Map<Integer, String> hashTable = new HashMap<Integer, String>(); // hashmap containing hashtable of info for shingles
 		
 	
 	// readFile - will read file, handle splitting into shingles and hashing, will return a set of shingles
@@ -44,7 +44,7 @@ public class FileHandler {
 					shingle = shingle.concat(word + " ");
 				} else if(wordCount == 5) { // When the shingle reaches 5,
 					shingle =  shingle.concat(word); // Add the word and...
-					// System.out.println("Hashcode for " + shingle + ": " + shingle.hashCode()); // for testing
+					System.out.println("Hashcode for " + shingle + ": " + shingle.hashCode()); // for testing
 					
 					hashTable.put(shingle.hashCode(), shingle); // Add the hash code for the whole shingle, and the shingle itself (as key / value pair) to the hashtable
 					shingles.add(shingle.hashCode()); // Add the hash code for the shingle to the set of shingles
@@ -63,5 +63,17 @@ public class FileHandler {
 		return shingles; // Return shingles set
 		
 	} // end readFile
+	
+	// Query hash table using hashCode to get associated string
+	public String queryHashTable(int request) {
+		String result = hashTable.get(request);	
+		return result;		
+	}
+
+	// Displays the hash table
+	public Map<Integer, String> getHashTable() {
+		//System.out.println(hashTable.toString());
+		return hashTable;
+	}
 
 }
