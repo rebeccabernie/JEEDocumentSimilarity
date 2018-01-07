@@ -1,14 +1,11 @@
 package ie.gmit.sw;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 // Need this for handling file stuff
 // Specifically reading / shingling / hashing
@@ -16,13 +13,12 @@ import java.util.Set;
 
 public class FileHandler {
 	//private File file; // document for preparing
-	private Set<Integer> shingles = new HashSet<Integer>();// set of shingles
 	private static Map<Integer, String> hashTable = new HashMap<Integer, String>(); // hashmap containing hashtable of info for shingles
 	private static List<Integer> hashCodes = new ArrayList<Integer>(); // hashmap containing hashtable of info for shingles
 
 	
-	// readFile - will read file, handle splitting into shingles and hashing, will return a set of shingles
-	public Set<Integer> readFile(String filename) throws Exception {
+	// readFile - will read file, handle splitting into shingles and hashing
+	public void readFile(String filename) throws Exception {
 			
 		String shingle = ""; // Shingles will be a string, then converted to hash
 		int wordCount = 0; // Keep count of words for shingling
@@ -44,16 +40,12 @@ public class FileHandler {
 			String[] words = line.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
 			
 			for (String word : words) { // For each word in the words array
-				//System.out.println(word);
 				wordCount++; // Increment count
 				if(wordCount < 5) { // If count is less than 5, add the word to the current shingle string
 					shingle = shingle.concat(word + " ");
 				} else if(wordCount == 5) { // When the shingle reaches 5,
 					shingle =  shingle.concat(word); // Add the word and...
-					//System.out.println("Hashcode for " + shingle + ": " + shingle.hashCode()); // for testing
-					
 					hashTable.put(shingle.hashCode(), shingle); // Add the hash code for the whole shingle, and the shingle itself (as key / value pair) to the hashtable
-					shingles.add(shingle.hashCode()); // Add the hash code for the shingle to the set of shingles
 					shingle = ""; // Reset the shingle string
 					wordCount = 0; // Reset the shingle word count
 					shingleCount++; // Increment total shingles
@@ -63,11 +55,6 @@ public class FileHandler {
 		} // end while
 		
 		br.close(); // Close the buffered reader
-		System.out.println("Total shingles: " + shingleCount);
-		System.out.println("Table entries: " + hashTable.size());
-		System.out.println(filename + " complete.");
-		System.out.println();
-		return shingles; // Return shingles set
 		
 	} // end readFile
 	
@@ -97,6 +84,7 @@ public class FileHandler {
 	}
 	
 	public List<Integer> getHashCodes(Map<Integer, String> ht) {
+		
 		if (hashCodes.isEmpty() == false){
 			hashCodes.clear();
 		}
@@ -104,7 +92,6 @@ public class FileHandler {
 		for (Integer i: ht.keySet())
             hashCodes.add(i);
 		
-		//System.out.println("Hash codes: " + hashCodes.size() );
 		return hashCodes;
 	}
 

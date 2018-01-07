@@ -11,33 +11,30 @@ public class ComparisonImpl implements Comparator {
 	// Do actual comparing stuff here
 	// Calculate similarity between docs
 	// Need somewhere to store identical shingles - map / array?
-	
 
-	public int compare(List<Integer> a, List<Integer> b) {
-		// Just getting number of similarities for the moment
-		int similarity = 0;
+	public float compare(List<Integer> a, List<Integer> b) {
 		int size;
+		int similarities = 0;
+		float percentage = 0.2f;
 		
 		if (a.size() < b.size())
 			size = a.size();
 		else
 			size = b.size();
-		
-		//System.out.println("a: " + a.size());
-		//System.out.println("b: " + b.size());
 
 		// Will loop through given lists, i being the index
 		for(int i = 0; i < size; i++) {
-			if(a.contains(b.get(i))) {
-				similarity++; // Add one to the similarity count
+			if(a.contains(b.get(i))) { // If a has a shingle that also appears somewhere in b
+				similarities++; // Add one to the similarity count
 			}
 		}
 		
-		//System.out.println(a.size() + " in a.");
-		//System.out.println(b.size() + " in b.");
-		//System.out.println(size + " shingles compared.");
+		System.out.println(size + " shingles compared.");
+		System.out.println(similarities + " similar shingles.");
+		percentage = ((float)similarities / (float)size) * 100;
+		//System.out.println(percentage);
 		
-		return similarity;
+		return percentage;
 	}
 	
 	

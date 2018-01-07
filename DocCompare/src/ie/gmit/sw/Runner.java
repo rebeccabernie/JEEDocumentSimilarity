@@ -1,7 +1,6 @@
 package ie.gmit.sw;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +35,9 @@ public class Runner {
 		System.out.println("\nComparison: ");
 		ComparisonImpl c1 = new ComparisonImpl();
 		System.out.println("a: " + hc1.size() + ", b: " + hc2.size());
-		System.out.println("Similarity: " + c1.compare(hc1, hc2));
+		//c1.compare(hc1, hc2);
+		System.out.println(c1.compare(hc1, hc2) + "% similarity in documents.");
+		System.out.println();
 		
 	}
 

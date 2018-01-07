@@ -1,22 +1,15 @@
 package ie.gmit.sw;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.EmbeddedConfiguration;
-import com.db4o.query.Predicate;
-import com.db4o.query.Query;
 import com.db4o.ta.TransparentActivationSupport;
 import com.db4o.ta.TransparentPersistenceSupport;
-import com.sun.xml.internal.ws.util.ReadAllStream;
 
 import xtea_db4o.XTEA;
 import xtea_db4o.XTeaEncryptionStorage;
@@ -25,7 +18,6 @@ import xtea_db4o.XTeaEncryptionStorage;
 
 public class DatabaseImpl implements Database {
 	private ObjectContainer db = null;
-	private List<Document> docs = new ArrayList<Document>();
 	
 	// Set up DB, adapted from Object Persistence in-class exercise
 	@Override
@@ -37,17 +29,6 @@ public class DatabaseImpl implements Database {
 		
 		// Basic Db4O only has caesar cypher encryption, use xtea for encryption instead
 		config.file().storage(new XTeaEncryptionStorage("password", XTEA.ITERATIONS64));
-		
-		/*
-		config.common().objectClass(Patient.class).cascadeOnUpdate(true);
-		config.common().objectClass(Patient.class).cascadeOnActivate(true);
-		config.common().objectClass(MDTReview.class).cascadeOnUpdate(true);
-		config.common().objectClass(MDTReview.class).cascadeOnActivate(true);
-		config.common().objectClass(User.class).cascadeOnUpdate(true);
-		config.common().objectClass(HospitalList.class).cascadeOnUpdate(true);
-		config.common().objectClass(TumourSet.class).cascadeOnUpdate(true);
-		config.common().objectClass(GPLetter.class).cascadeOnUpdate(true);
-		*/
 
 		//Open a local database. Use Db4o.openServer(config, server, port) for full client / server
 		db = Db4oEmbedded.openFile(config, "docs.data");
@@ -81,15 +62,8 @@ public class DatabaseImpl implements Database {
 		ObjectSet<Document> docs = db.query(Document.class);
 		for (Document doc : docs) {
 			System.out.println("[Document] " + doc.getName() + "\t Database ObjID: " + db.ext().getID(doc));
-
-			//Removing objects from the database is as easy as adding them
-			//db.delete(customer);
 			db.commit();
 		}
 	}
-
-	// Compare docs?
-
-	
 
 }
