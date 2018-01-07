@@ -27,6 +27,11 @@ public class FileHandler {
 		String shingle = ""; // Shingles will be a string, then converted to hash
 		int wordCount = 0; // Keep count of words for shingling
 		int shingleCount = 0; // Keep count of total shingles
+		
+		// Clear anything that might be in the hash table
+		if (hashTable.isEmpty() == false){
+			hashTable.clear();
+		}
 
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		System.out.println("Filename: " + filename);
@@ -59,6 +64,7 @@ public class FileHandler {
 		
 		br.close(); // Close the buffered reader
 		System.out.println("Total shingles: " + shingleCount);
+		System.out.println("Table entries: " + hashTable.size());
 		System.out.println(filename + " complete.");
 		System.out.println();
 		return shingles; // Return shingles set
@@ -66,7 +72,7 @@ public class FileHandler {
 	} // end readFile
 	
 	// Query hash table using hashCode to get associated string
-	public static String queryHashTable(int request) {
+	public String queryHashTable(int request) {
 		String result = hashTable.get(request);	
 		return result;		
 	}
@@ -84,16 +90,21 @@ public class FileHandler {
             String key =i.toString();
             String value = hashTable.get(i).toString();  
             System.out.println(key + " " + value);
-            hashCodes.add(i);
+            //hashCodes.add(i);
 		} 
 		
 		return hashTable;
 	}
 	
-	public List<Integer> getHashCodes() {
-		for (Integer i: hashTable.keySet())
+	public List<Integer> getHashCodes(Map<Integer, String> ht) {
+		if (hashCodes.isEmpty() == false){
+			hashCodes.clear();
+		}
+		
+		for (Integer i: ht.keySet())
             hashCodes.add(i);
 		
+		//System.out.println("Hash codes: " + hashCodes.size() );
 		return hashCodes;
 	}
 
