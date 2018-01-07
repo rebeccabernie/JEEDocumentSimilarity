@@ -6,7 +6,6 @@ public class Document {
 	
 	private String name; // Doc name
 	private String content; // Contents of doc
-	private int length; // Length of doc (words), might not need
 
 	// Using source - generate constructor, get/set 
 
@@ -33,15 +32,5 @@ public class Document {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	/* Doc Length --------------------------
-	public int getLength() {
-		return length;
-	}
-	public void setLength(int length) {
-		this.length = length;
-	}*/
-	
-	
 
 }

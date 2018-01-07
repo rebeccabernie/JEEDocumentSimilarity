@@ -18,7 +18,8 @@ public class FileHandler {
 	//private File file; // document for preparing
 	private Set<Integer> shingles = new HashSet<Integer>();// set of shingles
 	private static Map<Integer, String> hashTable = new HashMap<Integer, String>(); // hashmap containing hashtable of info for shingles
-		
+	private static List<Integer> hashCodes = new ArrayList<Integer>(); // hashmap containing hashtable of info for shingles
+
 	
 	// readFile - will read file, handle splitting into shingles and hashing, will return a set of shingles
 	public Set<Integer> readFile(String filename) throws Exception {
@@ -31,7 +32,7 @@ public class FileHandler {
 		System.out.println("Filename: " + filename);
 		String line = null;
 
-		while (shingleCount < 1000 && (line = br.readLine()) != null) { // While the limit hasn't been hit and there's still stuff in the file...
+		while (shingleCount < 2000 && (line = br.readLine()) != null) { // While the limit hasn't been hit and there's still stuff in the file...
 			// Array of words, split does not include the specified argument (space), adapted from https://stackoverflow.com/a/18831709/7232648
 			// Replace gets rid of all non alphabetical characters (punctuation etc)
 			// Lower case for the sake of "The / the" etc should be classed as the same word
@@ -44,7 +45,7 @@ public class FileHandler {
 					shingle = shingle.concat(word + " ");
 				} else if(wordCount == 5) { // When the shingle reaches 5,
 					shingle =  shingle.concat(word); // Add the word and...
-					System.out.println("Hashcode for " + shingle + ": " + shingle.hashCode()); // for testing
+					//System.out.println("Hashcode for " + shingle + ": " + shingle.hashCode()); // for testing
 					
 					hashTable.put(shingle.hashCode(), shingle); // Add the hash code for the whole shingle, and the shingle itself (as key / value pair) to the hashtable
 					shingles.add(shingle.hashCode()); // Add the hash code for the shingle to the set of shingles
@@ -65,15 +66,35 @@ public class FileHandler {
 	} // end readFile
 	
 	// Query hash table using hashCode to get associated string
-	public String queryHashTable(int request) {
+	public static String queryHashTable(int request) {
 		String result = hashTable.get(request);	
 		return result;		
 	}
 
 	// Displays the hash table
 	public Map<Integer, String> getHashTable() {
-		//System.out.println(hashTable.toString());
+		int x = 0;
+		
+		// Loop through hash table and display entries adapted from https://stackoverflow.com/a/5920157
+		for (Integer i: hashTable.keySet()){
+			x++;
+            if (x > 5)
+            	break;
+            
+            String key =i.toString();
+            String value = hashTable.get(i).toString();  
+            System.out.println(key + " " + value);
+            hashCodes.add(i);
+		} 
+		
 		return hashTable;
+	}
+	
+	public List<Integer> getHashCodes() {
+		for (Integer i: hashTable.keySet())
+            hashCodes.add(i);
+		
+		return hashCodes;
 	}
 
 }
