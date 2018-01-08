@@ -3,7 +3,7 @@ package ie.gmit.sw;
 import java.util.List;
 
 /**
-* <h1>Comparison Implementation</h1>
+* <h2>Comparison Implementation</h2>
 * The Comparison implementation implements the Comparator interface and compares the similarity between two given lists. 
 *
 * @author  Rebecca Kane
@@ -19,7 +19,10 @@ public class ComparisonImpl implements Comparator {
 	// Calculate similarity between docs
 	
 	/**
-	* This is the compare method which calculates the similarity of two documents.&nsbp;It takes two lists of Integers as parameters, performs calculations to determine the similarity of the two lists, and returns the result of these calculations as a percentage out of 100 - <i>i.e. 3.9 = 3.9%, 42 = 42%, 100 = 100% etc.</i>
+	* The compare method calculates the similarity of two documents.&nsbp;It takes two lists of Integers as parameters and loops through the first list one element at a time to find any instances of the same element in the second list.&nsbp;It divides the total number of similarities by the total number of iterations of the loop and returns the result of this calculation as a percentage out of 100 - <i>i.e.&nsbp;3.9 = 3.9%, 42 = 42%, 100 = 100% etc.</i>
+	* <p>
+	* <b>Note:</b> Number of iterations of the loop is determined using the smaller of the two lists, preventing "out of bounds" errors.
+	* 
    	* @param a			the list of hash codes generated from shingling the first document
    	* @param b			the list of hash codes generated from shingling the second document
    	* @return float		the similarity between a and b as a percentage / 100	

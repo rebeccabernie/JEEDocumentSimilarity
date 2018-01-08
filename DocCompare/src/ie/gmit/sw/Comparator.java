@@ -3,7 +3,7 @@ package ie.gmit.sw;
 import java.util.List;
 
 /**
-* <h1>Comparator Interface</h1>
+* <h2>Comparator Interface</h2>
 * The Comparator interface defines methods to be used in its implementation.
 *
 * @author  Rebecca Kane

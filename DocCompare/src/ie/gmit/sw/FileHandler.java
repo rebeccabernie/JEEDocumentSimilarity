@@ -18,7 +18,7 @@ public class FileHandler {
 
 	
 	// readFile - will read file, handle splitting into shingles and hashing
-	public void readFile(BufferedReader br) throws Exception {
+	public void readFile(String content) throws Exception {
 			
 		String shingle = ""; // Shingles will be a string, then converted to hash
 		int wordCount = 0; // Keep count of words for shingling
@@ -30,14 +30,14 @@ public class FileHandler {
 		}
 
 		//BufferedReader br = new BufferedReader(new FileReader(filename));
-		///System.out.println("Filename: " + filename);
+		//System.out.println("Filename: " + filename);
 		String line = null;
 
-		while (shingleCount < 2000 && (line = br.readLine()) != null) { // While the limit hasn't been hit and there's still stuff in the file...
+		if (shingleCount < 2000) { // While the limit hasn't been hit
 			// Array of words, split does not include the specified argument (space), adapted from https://stackoverflow.com/a/18831709/7232648
 			// Replace gets rid of all non alphabetical characters (punctuation etc)
 			// Lower case for the sake of "The / the" etc should be classed as the same word
-			String[] words = line.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
+			String[] words = content.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
 			
 			for (String word : words) { // For each word in the words array
 				wordCount++; // Increment count
@@ -52,9 +52,9 @@ public class FileHandler {
 				} // end if / else
 			} // end for
 			
-		} // end while
+		} // end if
 		
-		br.close(); // Close the buffered reader
+		//br.close(); // Close the buffered reader
 		
 	} // end readFile
 	

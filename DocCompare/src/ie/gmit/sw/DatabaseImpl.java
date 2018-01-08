@@ -1,8 +1,18 @@
 package ie.gmit.sw;
 
+/**
+* <h2>Database Implementation</h2>
+* The Database implementation implements the Database interface and initialises the db4o database. 
+*
+* @author  Rebecca Kane
+* @version 1.0
+*/
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
@@ -20,6 +30,9 @@ public class DatabaseImpl implements Database {
 	private ObjectContainer db = null;
 	
 	// Set up DB, adapted from Object Persistence in-class exercise
+	/**
+	* The setup method initialises the database and configures it for storing/retrieving objects.
+   	*/
 	@Override
 	public void setup() {
 		EmbeddedConfiguration config = Db4oEmbedded.newConfiguration();
@@ -33,7 +46,6 @@ public class DatabaseImpl implements Database {
 		//Open a local database. Use Db4o.openServer(config, server, port) for full client / server
 		db = Db4oEmbedded.openFile(config, "docs.data");
 		ObjectSet<Document> docs = db.query(Document.class);
-		
 		if (docs.isEmpty() == true){ // Only add if db is empty, prevents duplicates
 			try { // Read file into string adapted from http://javarevisited.blogspot.ie/2015/09/how-to-read-file-into-string-in-java-7.html
 				
@@ -43,8 +55,8 @@ public class DatabaseImpl implements Database {
 				db.store(doc1);
 				
 				// Convert DBG txt file into a string, create a new Document object for it, add it to database
-				String debellogallico = new String(Files.readAllBytes(Paths.get("debellogallico.txt")));
-				Document doc2 = new Document("De Bello Gallico", debellogallico);
+				String comparisonfile = new String(Files.readAllBytes(Paths.get("comparisonfile.txt")));
+				Document doc2 = new Document("Test File \t", comparisonfile);
 				db.store(doc2);
 				
 				db.commit(); // Commits the transaction
@@ -57,13 +69,16 @@ public class DatabaseImpl implements Database {
 		}
 	}
 	
-	public void showAllDocs(){
+	public List<String> getAllDocs(){
 		//An ObjectSet is a specialised List for storing results
 		ObjectSet<Document> docs = db.query(Document.class);
+		List<String> contents = new ArrayList<String>();
 		for (Document doc : docs) {
 			System.out.println("[Document] " + doc.getName() + "\t Database ObjID: " + db.ext().getID(doc));
+			contents.add(doc.getContent());
 			db.commit();
 		}
+		return contents;
 	}
 
 }
