@@ -1,6 +1,10 @@
 package ie.gmit.sw;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -125,15 +129,16 @@ public class ServiceHandler extends HttpServlet {
 		 * can be easily completed by writing the file to disk if necessary. The following lines just
 		 * read the document from memory... this might not be a good idea if the file size is large!
 		 */
-		out.print("<h3>Uploaded Document</h3>");	
+		out.print("<h3>Uploaded Dooooocument</h3>");	
 		out.print("<font color=\"0000ff\">");	
 		BufferedReader br = new BufferedReader(new InputStreamReader(part.getInputStream()));
-		String line = null;
-		while ((line = br.readLine()) != null) {
-			//Break each line up into shingles and do something. The servlet really should act as a
-			//contoller and dispatch this task to something else... 
-			//Divide and conquer...! I've been telling you all this since 2nd year...!
-			out.print(line);
+		while (br.hasNext() != null) {
+			out.print(part);
+			out.print("test");
+			try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("file.txt"), "utf-8"))) {
+			   writer.write(br);
+			}
+
 		}
 		out.print("</font>");	
 	}

@@ -18,7 +18,7 @@ public class FileHandler {
 
 	
 	// readFile - will read file, handle splitting into shingles and hashing
-	public void readFile(String filename) throws Exception {
+	public void readFile(BufferedReader br) throws Exception {
 			
 		String shingle = ""; // Shingles will be a string, then converted to hash
 		int wordCount = 0; // Keep count of words for shingling
@@ -29,8 +29,8 @@ public class FileHandler {
 			hashTable.clear();
 		}
 
-		BufferedReader br = new BufferedReader(new FileReader(filename));
-		System.out.println("Filename: " + filename);
+		//BufferedReader br = new BufferedReader(new FileReader(filename));
+		///System.out.println("Filename: " + filename);
 		String line = null;
 
 		while (shingleCount < 2000 && (line = br.readLine()) != null) { // While the limit hasn't been hit and there's still stuff in the file...

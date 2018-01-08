@@ -16,7 +16,7 @@ public class Runner {
 		
 
 		fh.readFile("warandpeace.txt");
-		System.out.println("Example hash table entries: ");
+		System.out.println("\nExample hash table entries: ");
 		Map<Integer, String> ht1 = fh.getHashTable(); // Output hash table (limited to 5 outputs for the sake of tidiness)
 		System.out.println("\nQuery example: \n1226392215: " + fh.queryHashTable(2141032343)); // Query the hash table
 		List<Integer> hc1 = new ArrayList<Integer>(fh.getHashCodes(ht1));
@@ -25,7 +25,7 @@ public class Runner {
 		System.out.println("\n\n-- End first doc --\n\n");
 		
 		fh.readFile("warandpeacecomp.txt");
-		System.out.println("Example hash table entries: ");
+		System.out.println("\nExample hash table entries: ");
 		Map<Integer, String> ht2 = fh.getHashTable(); // Output hash table 
 		System.out.println("\nQuery example: \n1226392215: " + fh.queryHashTable(587252482)); // Query the hash table
 		List<Integer> hc2 = new ArrayList<Integer>(fh.getHashCodes(ht2));
